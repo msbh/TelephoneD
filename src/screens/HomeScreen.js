@@ -24,11 +24,11 @@ const HomeScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Home</Text>
-            <Button title="Upload Contacts" onPress={() => navigation.navigate('ContactUpload')} />
-            <Button title="View Call History" onPress={() => navigation.navigate('CallHistory')} />
-            <Button title="Search by Number" onPress={() => navigation.navigate('SearchByNumber')} />
-            <Button title="Spam Detection" onPress={() => navigation.navigate('SpamDetection')} />
-            <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
+            <Button title="Upload Contacts" onPress={() => navigation.navigate('ContactUploadScreen')} />
+            <Button title="View Call History" onPress={() => navigation.navigate('CallHistoryScreen')} />
+            <Button title="Search by Number" onPress={() => navigation.navigate('SearchByNumberScreen')} />
+            <Button title="Spam Detection" onPress={() => navigation.navigate('SpamDetectionScreen')} />
+            <Button title="Profile" onPress={() => navigation.navigate('ProfileScreen')} />
         </View>
     );
 };

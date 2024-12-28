@@ -49,9 +49,22 @@ const RegistrationScreen = ({ navigation }) => {
         return phoneNumberObj && phoneNumberObj.isValid();
     };
 
+    const validateName = (name) => {
+        return name.trim().length > 0 && name.trim().length < 30;
+    };
+
+    const validateOtp = (otp) => {
+        return otp.trim().length < 10 && otp.trim().length > 3; // Assuming OTP is 6 digits
+    };
+
     const sendOtp = async () => {
         if (!validatePhoneNumber(phoneNumber, countryCode)) {
             Alert.alert('Invalid Phone Number', 'Please enter a valid phone number.');
+            return;
+        }
+
+        if (!validateName(name)) {
+            Alert.alert('Invalid Name', 'Please enter your name. Not more than 30 characters');
             return;
         }
 
@@ -61,6 +74,11 @@ const RegistrationScreen = ({ navigation }) => {
     };
 
     const verifyOtp = async () => {
+        if (!validateOtp(otp)) {
+            Alert.alert('Invalid OTP', 'Please enter a valid OTP.');
+            return;
+        }
+
         const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
         await firebase.auth().signInWithCredential(credential);
         // Save user info to Firestore
@@ -135,7 +153,7 @@ const RegistrationScreen = ({ navigation }) => {
                     </Text>
                 </Text>
             </View>
-            <Button title="Send OTP" onPress={sendOtp} disabled={!isPrivacyPolicyAccepted} />
+            <Button title="Send OTP" onPress={sendOtp} disabled={!isPrivacyPolicyAccepted || !validateName(name)} />
             <TextInput
                 style={styles.input}
                 placeholder="OTP"
@@ -143,7 +161,7 @@ const RegistrationScreen = ({ navigation }) => {
                 onChangeText={setOtp}
                 keyboardType="number-pad"
             />
-            <Button title="Verify OTP" onPress={verifyOtp} />
+            <Button title="Verify OTP" onPress={verifyOtp} disabled={!validateOtp(otp)} />
             <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
                 <Text style={styles.link}>Already have an account? Sign In</Text>
             </TouchableOpacity>
@@ -155,11 +173,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        backgroundColor: '#f5f5f5',
     },
     title: {
-        fontSize: 24,
+        fontSize: 28,
         fontWeight: 'bold',
+        color: '#333',
         marginBottom: 20,
+        textAlign: 'center',
     },
     input: {
         borderWidth: 1,
@@ -167,6 +188,7 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 20,
         borderRadius: 5,
+        backgroundColor: '#fff',
     },
     phoneContainer: {
         flexDirection: 'row',
@@ -179,6 +201,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         padding: 10,
         borderRadius: 5,
+        backgroundColor: '#fff',
         marginRight: 10,
     },
     phoneInput: {
@@ -187,6 +210,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         padding: 10,
         borderRadius: 5,
+        backgroundColor: '#fff',
     },
     privacyPolicyContainer: {
         flexDirection: 'row',
@@ -195,6 +219,7 @@ const styles = StyleSheet.create({
     },
     privacyPolicyText: {
         marginLeft: 10,
+        color: '#333',
     },
     link: {
         color: '#007BFF',
