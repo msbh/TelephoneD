@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 
-const RegistrationScreen = ({ navigation }) => {
-    const [name, setName] = useState('');
+const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [email, setEmail] = useState('');
     const [otp, setOtp] = useState('');
 
     const handleSendOtp = () => {
@@ -12,20 +10,14 @@ const RegistrationScreen = ({ navigation }) => {
         console.log('OTP sent to:', phoneNumber);
     };
 
-    const handleSignUp = () => {
-        // Sign up logic here
-        console.log('User signed up:', { name, phoneNumber, email, otp });
-        navigation.navigate('OTPVerification');
+    const handleLogin = () => {
+        // Login logic here
+        console.log('User logged in:', { phoneNumber, otp });
+        navigation.navigate('Home');
     };
 
     return (
         <View style={styles.container}>
-            <TextInput
-                style={styles.input}
-                placeholder="Name"
-                value={name}
-                onChangeText={setName}
-            />
             <TextInput
                 style={styles.input}
                 placeholder="Phone Number"
@@ -35,21 +27,15 @@ const RegistrationScreen = ({ navigation }) => {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Email (optional)"
-                value={email}
-                onChangeText={setEmail}
-            />
-            <TextInput
-                style={styles.input}
                 placeholder="Enter OTP"
                 value={otp}
                 onChangeText={setOtp}
                 keyboardType="number-pad"
             />
             <Button title="Send OTP" onPress={handleSendOtp} />
-            <Button title="Sign Up" onPress={handleSignUp} />
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                <Text style={styles.link}>Already have an account? Log In</Text>
+            <Button title="Log In" onPress={handleLogin} />
+            <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+                <Text style={styles.link}>Don't have an account? Sign Up</Text>
             </TouchableOpacity>
         </View>
     );
@@ -74,4 +60,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegistrationScreen;
+export default LoginScreen;
