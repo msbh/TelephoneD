@@ -1,9 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { firebase } from '../firebaseConfig';
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+
+    useEffect(() => {
+        const checkUserAuth = () => {
+            const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+                if (!user) {
+                    navigation.navigate('RegistrationScreen');
+                }
+            }, (error) => {
+                console.error('Error checking auth state:', error);
+            });
+            return unsubscribe;
+        };
+
+        checkUserAuth();
+    }, [navigation]);
 
     return (
         <View style={styles.container}>

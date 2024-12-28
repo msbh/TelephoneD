@@ -12,6 +12,7 @@ import SearchByNumberScreen from './src/screens/SearchByNumber';
 import CommunityTaggingScreen from './src/screens/CommunityTagging';
 import ProfileCreationScreen from './src/screens/ProfileCreation';
 import PrivacySettingsScreen from './src/screens/PrivacySettings';
+import PrivacyPolicyScreen from './src/screens/PrivacyPolicyScreen'; // Corrected import path
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,8 @@ const App = () => {
         <Stack.Screen name="CommunityTagging" component={CommunityTaggingScreen} options={{ title: 'Tag Numbers' }} />
         <Stack.Screen name="ProfileCreation" component={ProfileCreationScreen} options={{ title: 'Create Your Profile' }} />
         <Stack.Screen name="PrivacySettings" component={PrivacySettingsScreen} options={{ title: 'Privacy Settings' }} />
+        <Stack.Screen name="PrivacyPolicyScreen" component={PrivacyPolicyScreen} /> {/* Added PrivacyPolicyScreen */}
+
       </Stack.Navigator>
     </NavigationContainer>
   );
