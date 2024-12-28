@@ -1,21 +1,20 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import RegistrationScreen from './src/screens/RegistrationScreen';
+import OTPScreen from './src/screens/OTPScreen';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Hello, React Native with JavaScript!</Text>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="RegistrationScreen">
+        <Stack.Screen name="RegistrationScreen" component={RegistrationScreen} options={{ title: 'Register' }} />
+        <Stack.Screen name="OTPScreen" component={OTPScreen} options={{ title: 'Verify OTP' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-});
 
 export default App;
